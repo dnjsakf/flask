@@ -5,6 +5,11 @@
         <link type='stylesheet/text' rel='/static/common.css'/>
     </head>
     <body>
-        {{ data }}
+        receive data: {{ data }}
+        <form method="post", action="/list">
+            <input type="text" name="title" placeholder="title"></br>
+            <input type="text" name="summary" placeholder="summary"></br>
+            <button>submit</button>
+        </form>
     </body>
 </html>

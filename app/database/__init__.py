@@ -6,7 +6,9 @@ from functools import wraps
 logger = logging.getLogger('db')
 logger.setLevel( logging.INFO )
 
-class DB:
+class DB(object):
+
+    @staticmethod
     def connect( retry=1 ):
         import app.config.database as config
 
@@ -17,15 +19,14 @@ class DB:
                 conn = None
                 
                 for trying in range(1, retry+1):
-                    conn = pymongo.MongoClient( config.DB_HOST, config.DB_PORT, serverSelectionTimeoutMS=1 )
-
+                    client = pymongo.MongoClient(config.DB_URL, serverSelectionTimeoutMS=3000)
+    
                     try:
-                        logger.info( conn.server_info() )
-                        logger.info( 'hi' )
+                        logger.info( client.server_info() )
 
-                        return func( conn, *args, **kargs )
+                        return func( client[kargs['database']], *args, **kargs )
                     except pymongo.errors.ServerSelectionTimeoutError as err:
-                        conn = None
+                        client = None
 
                         logger.error(f' { err } : retry...{ trying }/{ retry }')
 
@@ -34,6 +35,7 @@ class DB:
             return connectWrap
         return wrap
 
-@DB.connect( retry=30 )
-def connect( conn, database, collection ):
-    return conn.get_database(database).get_collection(collection)
+@DB.connect( retry=5 )
+def connect( client=None, database=None, collection=None ):
+    #return client.get_database(database).get_collection(collection)
+    return client
