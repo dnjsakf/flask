@@ -1,5 +1,5 @@
 # 1. Run flask
-'''bash
-# Run 
+```bash
+# Run
 $ python server.py
-'''
+```
