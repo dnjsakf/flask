@@ -1,5 +1,13 @@
-from app.database import connect
+from app.database import DB
 
-conn = connect( database='heoapi', collection='temp' )
+@DB.transaction(database='test')
+def select( client, session ):
 
-# Connection Test
+    data = DB.select( collection='test', filter={ "_id": False } )
+
+@DB.transaction(database='test')
+def delete( client, session ):
+
+    data = DB.delete( collection='test', cond={ "title": "1" } )
+
+select()

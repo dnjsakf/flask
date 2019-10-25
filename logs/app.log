@@ -1,0 +1,6 @@
+2019-10-26 00:56:14,531 - API_LOG - INFO - request connection
+2019-10-26 00:56:17,209 - API_LOG - INFO - connected!!!
+2019-10-26 00:56:17,209 - API_LOG - INFO - open-transaction
+2019-10-26 00:56:17,412 - API_LOG - INFO - [{'no': 10}, {'no': 10}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '4', 'summary': '4'}]
+2019-10-26 00:56:17,614 - API_LOG - INFO - commit-transaction
+2019-10-26 00:56:17,615 - API_LOG - INFO - close-transaction

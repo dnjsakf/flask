@@ -5,7 +5,6 @@ from flask_cors import CORS
 
 app = Flask(__name__, root_path='', static_folder='/static', template_folder='app/templates')
 
-from app.database import connect
 from app.routes import route_index, route_list
 
 def createApp(env='dev'):
@@ -18,7 +17,5 @@ def createApp(env='dev'):
 
     if 'CORS' in app.config:
         CORS(app=app, resources=app.config['CORS'])
-
-    app.config['db'] = connect( database='test' )
 
     return app
