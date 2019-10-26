@@ -3,8 +3,11 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  name: 'cra_flask',
+  name: 'flask',
   mode: 'development',
+  node: {
+    fs: 'empty'
+  },
   devtool: 'eval',
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -71,5 +74,6 @@ module.exports = {
     port: 4000,
     historyApiFallback: true,
     hot: true,
+    contentBase: path.join(__dirname,'client/static')
   },
 };

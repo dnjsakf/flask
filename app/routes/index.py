@@ -9,4 +9,4 @@ def main_index():
         "A": 10
     }
     
-    return render_template('index.html', data=data)
+    return render_template('react.html')

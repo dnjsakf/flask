@@ -23,3 +23,19 @@
 2019-10-26 13:09:58,480 - API_LOG - INFO - request connection
 2019-10-26 13:13:26,508 - API_LOG - INFO - request connection
 2019-10-26 13:18:13,851 - API_LOG - INFO - request connection
+2019-10-27 00:29:17,104 - API_LOG - INFO - request connection
+2019-10-27 00:29:17,144 - API_LOG - INFO - get client
+2019-10-27 00:29:19,525 - API_LOG - INFO - connected!!!
+2019-10-27 00:29:19,722 - API_LOG - INFO - [{'no': 10}, {'no': 10}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '4', 'summary': '4'}]
+2019-10-27 00:31:55,635 - API_LOG - INFO - request connection
+2019-10-27 00:31:55,667 - API_LOG - INFO - get client
+2019-10-27 00:31:58,122 - API_LOG - INFO - connected!!!
+2019-10-27 00:31:58,316 - API_LOG - INFO - [{'no': 10}, {'no': 10}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '4', 'summary': '4'}]
+2019-10-27 00:33:03,035 - API_LOG - INFO - request connection
+2019-10-27 00:33:03,063 - API_LOG - INFO - get client
+2019-10-27 00:33:05,484 - API_LOG - INFO - connected!!!
+2019-10-27 00:33:05,685 - API_LOG - INFO - [{'no': 10}, {'no': 10}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '4', 'summary': '4'}]
+2019-10-27 00:33:17,150 - API_LOG - INFO - request connection
+2019-10-27 00:33:17,238 - API_LOG - INFO - get client
+2019-10-27 00:33:19,594 - API_LOG - INFO - connected!!!
+2019-10-27 00:33:19,784 - API_LOG - INFO - [{'no': 10}, {'no': 10}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '4', 'summary': '4'}]

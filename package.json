@@ -15,6 +15,7 @@
     "axios": "^0.19.0",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
+    "fs": "0.0.1-security",
     "mini-css-extract-plugin": "^0.8.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",
@@ -25,7 +26,9 @@
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
     "redux-saga": "^1.1.1",
-    "url-loader": "^2.2.0"
+    "url-loader": "^2.2.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
