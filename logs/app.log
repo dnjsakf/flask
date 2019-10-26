@@ -4,3 +4,22 @@
 2019-10-26 00:56:17,412 - API_LOG - INFO - [{'no': 10}, {'no': 10}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'username': 'heo'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '3', 'summary': '3'}, {'title': '4', 'summary': '4'}]
 2019-10-26 00:56:17,614 - API_LOG - INFO - commit-transaction
 2019-10-26 00:56:17,615 - API_LOG - INFO - close-transaction
+2019-10-26 12:24:09,826 - API_LOG - INFO - request connection
+2019-10-26 12:26:05,206 - API_LOG - INFO - request connection
+2019-10-26 12:26:41,175 - API_LOG - INFO - request connection
+2019-10-26 12:28:33,418 - API_LOG - INFO - request connection
+2019-10-26 12:31:37,206 - API_LOG - INFO - request connection
+2019-10-26 12:32:11,851 - API_LOG - INFO - request connection
+2019-10-26 12:34:16,182 - API_LOG - INFO - request connection
+2019-10-26 12:35:02,625 - API_LOG - INFO - request connection
+2019-10-26 12:35:16,595 - API_LOG - INFO - request connection
+2019-10-26 12:39:32,404 - API_LOG - INFO - request connection
+2019-10-26 12:44:00,161 - API_LOG - INFO - request connection
+2019-10-26 12:54:57,784 - API_LOG - INFO - request connection
+2019-10-26 13:03:47,133 - API_LOG - INFO - request connection
+2019-10-26 13:06:55,627 - API_LOG - INFO - request connection
+2019-10-26 13:07:35,669 - API_LOG - INFO - request connection
+2019-10-26 13:07:37,735 - API_LOG - INFO - get client
+2019-10-26 13:09:58,480 - API_LOG - INFO - request connection
+2019-10-26 13:13:26,508 - API_LOG - INFO - request connection
+2019-10-26 13:18:13,851 - API_LOG - INFO - request connection

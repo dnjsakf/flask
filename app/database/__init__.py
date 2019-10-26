@@ -2,6 +2,8 @@ from functools import wraps
 from pymongo import MongoClient, errors
 from app.config import logger
 
+import dns
+
 class DB( object ):
 
     RETRY = 3
@@ -11,7 +13,7 @@ class DB( object ):
     @classmethod
     def connect( cls, database=None, retry=RETRY ):
 
-        import app.config.database as config
+        from app.config import db_conf
 
         def wrap( func ):
             '''Connection retry...'''
@@ -19,7 +21,9 @@ class DB( object ):
             def connectWrap(*args, **kargs):
                 logger.info( 'request connection' )
                 for trying in range(1, retry+1):
-                    client = MongoClient(config.DB_URL, serverSelectionTimeoutMS=1000)
+                    client = MongoClient(db_conf.DB_URL, serverSelectionTimeoutMS=1000)
+
+                    logger.info( 'get client' )
 
                     try:
                         logger.debug( client.server_info() )

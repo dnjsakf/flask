@@ -1,2 +1,2 @@
-import app.config.database as conf_db
+import app.config.database as db_conf
 from app.config.logger import logger

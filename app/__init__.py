@@ -12,7 +12,7 @@ def createApp(env='dev'):
     envConf = dotenv.load_dotenv( dotenv_path=envConfFile )
     app.config.from_object( envConf )
 
-    pyConfFile = os.path.join(os.path.dirname(__file__), 'config', 'conf-dev.py')
+    pyConfFile = os.path.join(os.path.dirname(__file__), 'config', f'env.{env}.py')
     app.config.from_pyfile( pyConfFile )
 
     if 'CORS' in app.config:

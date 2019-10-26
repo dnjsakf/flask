@@ -23,3 +23,5 @@ $ python server.py
 ###  4-4. Flume으로 ElasticSearch 및 DB에 분산 적재
 ###  4-5. ElasticSearch에 적재되 데이터는 Kibana로 모니터링
   
+# TODO
+## 1. React Setting Project 만들기
