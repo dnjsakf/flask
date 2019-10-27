@@ -1,18 +1,18 @@
 # 1. Setting python
 
-> ## 1. install virtualenv
+>> ## 1. install virtualenv
 ```bash
 $ pip install virtualenv
 $ virtualenv .venv
 ```
 
-> ## 2. install packcages
+>> ## 2. install packcages
 ```bash
 $ . .venv/bin/activate
 (.venv)$ pip install -r requirements.txt
 ```
 
-> ## 3. run flask
+>> ## 3. run flask
 ```bash
 # Run
 $ python server.py
