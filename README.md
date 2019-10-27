@@ -1,6 +1,6 @@
 # 1. Setting python
 
-+ 1. install virtualenv
+> # 1. install virtualenv
 ```bash
 $ pip install virtualenv
 $ virtualenv .venv
