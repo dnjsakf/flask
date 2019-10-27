@@ -1,7 +1,7 @@
 # 1. Setting python
 
 >> ## 1. install virtualenv
-```bash
+>> ```bash
 $ pip install virtualenv
 $ virtualenv .venv
 ```
