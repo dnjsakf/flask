@@ -1,4 +1,5 @@
 app/config/database.py
 __pycache__
-
 node_modules/*
+logs/*
+.venv

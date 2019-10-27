@@ -1,40 +1,71 @@
-import React, { memo, useState, useEffect, useCallback } from 'react'
+import React, { memo, useState, useEffect, useCallback, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { actionSelect } from './../../reducers/crud'
-
-import logger from './../../config/logger'
+import { actionSelect, actionInsert } from './../../reducers/crud'
 
 const App = memo(()=>{
 
-    const data = useSelector(({ crud })=>(
-        crud.data
+    const { data, status } = useSelector(({ crud })=>(
+        crud
     ), []);
 
+    const refInputNo = useRef();
+    const refInputTitle = useRef();
+    const refInputAuthor = useRef();
+
     const dispatch = useDispatch();
-    const onGetData = useCallback(( options )=>{
-
-        logger.info( 'call',options );
-
+    const getDataList = useCallback(( options )=>{
+        console.log( '[APP] getDataList, [ dispatch ]', options )
         dispatch( actionSelect( options ) );
+    }, [ dispatch ]);
+    const insertData = useCallback(( options )=>{
+        console.log( '[APP] insertData, [ dispatch ]', options )
+        dispatch( actionInsert( options ) );
     }, [ dispatch ]);
 
     const handleGetData = useCallback((e)=>{
         e.preventDefault();
-        const options = {
+        getDataList({
             method: 'get'
             , url: 'http://localhost:3000/list'
+        });
+    }, [ dispatch ]);
+
+    const handleSubmit = useCallback((e)=>{
+        e.preventDefault();
+        const formData = {
+            no: refInputNo.current.value
+            , title: refInputTitle.current.value
+            , author: refInputAuthor.current.value
         }
-        onGetData( options );
+        console.log( '[APP] handleSubmit, [ dispatch ]', formData );
+        insertData({
+            method: 'POST'
+            , url: 'http://localhost:3000/list'
+            , data: formData
+        })
     }, [ dispatch ]);
 
     useEffect(()=>{
-        logger.info( 'changed data', data );
+        console.log('[APP] useEffect, [ data ]', data );
     }, [ data ]);
+
+    // useEffect(()=>{
+    //     console.log('[APP] useEffect, [ status ]', status );
+    // }, [ status ]);
 
     return(
         <>
             <h1>data</h1>
             <button onClick={ handleGetData }>GET</button>
+            <form onSubmit={ handleSubmit }>
+                <input type="text" ref={ refInputNo } name="no" placeholder="no"/>
+                <input type="text" ref={ refInputTitle }name="title" placeholder="title"/>
+                <input type="text" ref={ refInputAuthor } name="author" placeholder="author"/>
+                <button>submit</button>
+            </form>
+            <ul>
+            { status == 200 && ( data.map(( item, idx )=>( <li key={ idx }>{ item.no }</li> )) ) }
+            </ul>
         </>
     )
 })

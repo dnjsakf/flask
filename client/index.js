@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom'
 import { hot } from 'react-hot-loader/root'
 import App from './components/App/App'
 
-import logger from './config/logger'
-
 import './static/common.css'
 
 // Config Redux
@@ -22,14 +20,13 @@ const store = createStore( rootReducer, applyMiddleware(sagaMiddleware) );
 
 function render( Component, flag=false ){
 	Component = flag ? hot( Component ) : Component;
-	
-	logger.info( 'start react' );
 
 	ReactDOM.render( 
 		<Provider store={ store }>
 			<Component user='Heo'/>
 		</Provider>
 	, document.getElementById('root') );
+	
 }
 
 sagaMiddleware.run(rootSagas);

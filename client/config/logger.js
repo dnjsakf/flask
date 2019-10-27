@@ -52,10 +52,11 @@ const logger = new winston.createLogger({
     , colorize: true
     , handleExceptions: true
     , transports: [
-        // new winston_daily( options.file_daily )
+        // add transports 
     ]
 });
 
+// logger.add( new winston_daily( options.file_daily ) );
 // logger.add( new winston.transports.File( options.file ) );
 
 if(process.env.NODE_ENV !== 'production'){

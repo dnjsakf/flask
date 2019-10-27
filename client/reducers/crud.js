@@ -14,31 +14,44 @@ export const DELETE = 'crud/DELETE'
 export const DELETE_SUCCESS = 'crud/DELETE_SUCCESS'
 export const DELETE_FAILURE = 'crud/DELETE_FAILURE'
 
-
 export const actionSelect = ( payload )=>({ type: SELECT, payload: payload })
-export const actionInsert = ( payload )=>({ type: SELECT, payload: payload })
-export const actionDelete = ( payload )=>({ type: SELECT, payload: payload })
-export const actionUpdate = ( payload )=>({ type: SELECT, payload: payload })
+export const actionInsert = ( payload )=>({ type: INSERT, payload: payload })
+export const actionUpdate = ( payload )=>({ type: UPDATE, payload: payload })
+export const actionDelete = ( payload )=>({ type: DELETE, payload: payload })
 
 const initState = {
     result: null
-    , status: 200
+    , status: 0
     , data: []
     , params: []
     , response: null
 }
 
 const crudReducer = ( state=initState, action )=>{
+
+    console.log('[reducer] crudReducer', action);
+
     switch( action.type ){
         /******** SELECT ********/
         case SELECT:
-            return state;
-
+            return {
+                ...state
+                , status: 1
+                , response: null
+            };
         case SELECT_SUCCESS:
-            return state;
-
+            return {
+                ...state
+                , status: action.payload.status
+                , data: action.payload.data
+                , response: action.payload
+            };
         case SELECT_FAILURE:
-            return state;
+            return {
+                ...state
+                , status: action.payload.status
+                , response: action.payload
+            };
         /************************/
         /******** INSERT ********/
         case INSERT:

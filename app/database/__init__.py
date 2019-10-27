@@ -1,8 +1,7 @@
 from functools import wraps
 from pymongo import MongoClient, errors
 from app.config import logger
-
-import dns
+from bson.objectid import ObjectId
 
 class DB( object ):
 
@@ -26,7 +25,7 @@ class DB( object ):
                     logger.info( 'get client' )
 
                     try:
-                        logger.debug( client.server_info() )
+                        logger.info( client.server_info() )
 
                         _client = client[database] if database else client
 
@@ -91,15 +90,23 @@ class DB( object ):
         try:
             res = list( cls.CLIENT[collection].find(cond, filter, session=cls.SESSION ) )
 
-            logger.info( res )            
-        except Exception as err:
-            logger.error( err )
+            logger.info( f'selected!!! length: { len( res ) }' )
+        except Exception as error:
+            logger.error( error )
 
         return res
 
     @classmethod
     def insert( cls, collection=None, data={}, retry=RETRY ):
-        return cls.CLIENT[collection].insert_one( data, session=cls.SESSION )
+        res = None
+        try:
+            res = cls.CLIENT[collection].insert_one( data, session=cls.SESSION )
+
+            logger.info( f'inserted!!! ObjectId: { ObjectId(res.inserted_id) }' )
+        except Exception as error:
+            logger.error( error )
+
+        return res
 
     @classmethod
     def delete( cls, collection=None, cond={}, retry=RETRY ):
