@@ -90,6 +90,8 @@ class DB( object ):
         try:
             res = list( cls.CLIENT[collection].find(cond, filter, session=cls.SESSION ) )
 
+            cls.CLIENT[collection].aggregate( pipeline=pipe )
+
             logger.info( f'selected!!! length: { len( res ) }' )
         except Exception as error:
             logger.error( error )

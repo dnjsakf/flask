@@ -1,5 +1,7 @@
 app/config/database.py
 __pycache__
-node_modules/*
+node_modules
 logs/*
 .venv
+.vscode
+

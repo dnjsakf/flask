@@ -29,9 +29,13 @@ function* handleInsert( action ){
         const response = yield call( requestWithAxios, action.payload );
         console.log( '[saga] handleInsert', response )
         yield put({
-            type: INSERT_SUCCESS
-            , payload: response
+            type: SELECT
+            , payload: response.data
         });
+        // yield put({
+        //     type: INSERT_SUCCESS
+        //     , payload: response
+        // });
     } catch ( error ){
         console.error( '[saga] handleInsert', error );
         yield put({

@@ -1,10 +1,10 @@
 from app import app
 
-from flask import jsonify, redirect, request
+from flask import jsonify, redirect, request, url_for, make_response
 from bson.objectid import ObjectId
 from app.database import DB
-
-from app.config import logger
+from app.config.logger import logger
+from app.config.pipelines import DataMapper
 
 @app.route('/list', methods=['GET'])
 @app.route('/list/<int:page>', methods=['GET'])
@@ -26,5 +26,8 @@ def insertList( client ):
     except Exception as error :
         logger.error( error )
 
-    return redirect('/list')
+    return jsonify({
+        'method': 'get'
+        , 'url': 'http://localhost:3000/list'
+    })
 
