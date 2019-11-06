@@ -2,6 +2,7 @@ import os
 import dotenv
 from flask import Flask
 from flask_cors import CORS
+from app.database import DB
 
 app = Flask(__name__, root_path='', static_folder='/static', template_folder='app/templates')
 
@@ -16,6 +17,8 @@ def createApp(env='dev'):
     app.config.from_pyfile( pyConfFile )
 
     if 'CORS' in app.config:
-        CORS(app=app, resources=app.config['CORS'])
+        CORS( app=app, resources=app.config['CORS'] )
+
+    app.config['database'] = DB.connect()
 
     return app

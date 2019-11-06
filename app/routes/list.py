@@ -4,20 +4,22 @@ from flask import jsonify, redirect, request, url_for, make_response
 from bson.objectid import ObjectId
 from app.database import DB
 from app.config.logger import logger
-from app.config.pipelines import DataMapper
+
+from app.database.pipelines import DataPipe
 
 @app.route('/list', methods=['GET'])
 @app.route('/list/<int:page>', methods=['GET'])
-@DB.connect( database='test' )
-def getList( client, page=None ):
+def getList( page=1 ):
+    conn = app.config['database']['test']['ygosu']
 
-    data = DB.select( collection='test', filter={'_id': False} )
+    data = list( conn.aggregate( DataPipe.selectData( cate='yeobgi', page=page, sort={ 'no': 1 } ) ) )
+
+    print( data )
 
     return jsonify( data )
 
 @app.route('/list', methods=['POST'])
-@DB.connect( database='test' )
-def insertList( client ):
+def insertList():
     logger.info('insert')
     try:
         data = dict( request.json )
@@ -31,3 +33,10 @@ def insertList( client ):
         , 'url': 'http://localhost:3000/list'
     })
 
+
+@app.route('/list/<string:category>', methods=['GET'])
+def getCateList( category=None ):
+
+    data = DB.select( collection='test', filter={'_id': False} )
+
+    return jsonify( data )

@@ -64,7 +64,8 @@ const App = memo(()=>{
                 <button>submit</button>
             </form>
             <ul>
-            { status == 200 && ( data.map(( item, idx )=>( <li key={ idx }>{ item.no }</li> )) ) }
+            { status == 200 && ( data.map(( item, idx )=>( 
+                <li key={ item.no }>{ item.no }@{ item.tit }@{ item.name }@{ item.load_dttm }</li> )) ) }
             </ul>
         </>
     )

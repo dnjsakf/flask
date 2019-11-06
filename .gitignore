@@ -1,7 +1,5 @@
-app/config/database.py
-__pycache__
+app/config/database/*
 node_modules
 logs/*
 .venv
 .vscode
-

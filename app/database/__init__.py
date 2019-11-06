@@ -1,87 +1,71 @@
+from pprint import pprint
 from functools import wraps
 from pymongo import MongoClient, errors
-from app.config import logger
 from bson.objectid import ObjectId
 
-class DB( object ):
+from app.config import logger, MongoConf
 
-    RETRY = 3
+class DB(object):
+
+    RETRY = 5
     SESSION = None
     CLIENT = None
 
     @classmethod
-    def connect( cls, database=None, retry=RETRY ):
+    def connect( cls, retry=RETRY ):
+        logger.info( 'Start connection...' )
+        
+        client = None
 
-        from app.config import db_conf
+        try:
+            for trying in range(1, retry+1):
+                client = MongoClient( MongoConf.URL )
+                try:
+                    info = client.server_info()
+                    logger.info( info )
+                    break
+                except errors.ServerSelectionTimeoutError as error:
+                    logger.info(f' { error } : retry...{ trying }/{ retry }')
 
-        def wrap( func ):
-            '''Connection retry...'''
-            @wraps( func )
-            def connectWrap(*args, **kargs):
-                logger.info( 'request connection' )
-                for trying in range(1, retry+1):
-                    client = MongoClient(db_conf.DB_URL, serverSelectionTimeoutMS=1000)
+        except Exception as error:
+            client = None
+            logger.error( error )
 
-                    logger.info( 'get client' )
+        finally:
+            cls.CLIENT = client
 
-                    try:
-                        logger.info( client.server_info() )
+        logger.info( 'End connection!!!' )
 
-                        _client = client[database] if database else client
-
-                        cls.CLIENT = _client
-
-                        logger.info( 'connected!!!' )
-                        return func( client, *args, **kargs )
-
-                    except errors.ServerSelectionTimeoutError as err:
-                        client = None
-                        cls.CLIENT = None
-
-                        logger.info(f' { err } : retry...{ trying }/{ retry }')
-
-                return None
-
-            return connectWrap
-        return wrap
+        return client
 
     @classmethod
-    def transaction( cls, database=None, retry=RETRY ):
-        def wrap(func):
-            @wraps(func)
-            @DB.connect()
-            def transactionWrap( client, *args, **kargs ):
-                res = None
-                session = None
-                try:
-                    logger.info( 'open-transaction' )
-                    session = client.start_session()
-                    session.start_transaction()
+    def transaction( cls, database=None ):
+        logger.info( 'Start transaction...' )
+        def wrap( func ):
+            @wraps( func )
+            def transWrap( pipeline=None ):
+                if cls.CLIENT != None and pipeline != None:
+                    logger.info( pipeline )
+                    '''
+                        Setting pipeline
+                    '''
+                    session = cls.CLIENT.start_session()
 
-                    _client = client[database] if database else client
+                    res = None
+                    try:
+                        session.start_transaction()
 
-                    cls.SESSION = session
-                    cls.CLIENT = _client
+                        res = func( client=cls.CLIENT[database], session=session )
 
-                    res = func( client=_client, session=session, *args, **kargs )
+                        session.commit_transaction()
+                    except Exception as error:
+                        session.abort_transaction()
+                        logger.error( error )
 
-                    session.commit_transaction()
-                    logger.info( 'commit-transaction' )
-
-                except Exception as err:
-                    logger.error( err )
-                    if session: 
-                        session.abort_transaction() # Rollback
-                        logger.info( 'rollback-transaction' )
-
-                finally:
-                    cls.destroy()
-
-                    session = None
-                    logger.info( 'close-transaction' )
-                return res
-                
-            return transactionWrap
+                    return res
+                else:
+                    return func( client=None, session=None )
+            return transWrap
         return wrap
 
     @classmethod
@@ -122,3 +106,4 @@ class DB( object ):
     def destroy( cls ):
         cls.CLIENT = None
         cls.SESSION = None
+

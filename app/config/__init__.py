@@ -1,2 +1,2 @@
-import app.config.database as db_conf
+import app.config.database as MongoConf
 from app.config.logger import logger

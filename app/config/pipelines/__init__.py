@@ -1,1 +1,0 @@
-from app.config.pipelines.listPipe import DataMapper

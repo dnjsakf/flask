@@ -1,16 +1,6 @@
+from pprint import pprint
 from app.database import DB
 
-@DB.connect(database='test')
-def select( client ):
-
-    data = DB.select( collection='test', filter={ "_id": False } )
-
-@DB.connect(database='test')
-def delete( client, session ):
-
-    data = DB.delete( collection='test', cond={ "title": "1" } )
-
-@DB.connect(database='test')
 def tester( client ):
     from bson.objectid import ObjectId
 
@@ -48,13 +38,12 @@ def tester( client ):
 
 # tester()
 
-match = {
-    'no': 1
-}
-page = 1
-rowsPerPage = 5
+DB.connect( retry=5 )
 
-from app.config.pipelines import DataMapper
+@DB.transaction( 'test' )
+def getDataList( client, session ):
+    data = client.test.aggregate()
 
-mapper = DataMapper.selectData( match=match, page=page, rowsPerPage=rowsPerPage )
-print( mapper )
+    pprint( list(data) )
+
+getDataList( pipeline='insertGetData' )
