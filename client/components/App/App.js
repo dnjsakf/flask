@@ -8,9 +8,9 @@ const App = memo(()=>{
         crud
     ), []);
 
-    const refInputNo = useRef();
-    const refInputTitle = useRef();
-    const refInputAuthor = useRef();
+    const refInputPage = useRef();
+    const refInputCate = useRef();
+    const refInputCommunity = useRef();
 
     const dispatch = useDispatch();
     const getDataList = useCallback(( options )=>{
@@ -24,18 +24,23 @@ const App = memo(()=>{
 
     const handleGetData = useCallback((e)=>{
         e.preventDefault();
+        const params = {
+            page: refInputPage.current.value || 1
+            , cate: refInputCate.current.value
+            , community: refInputCommunity.current.value
+        }
         getDataList({
             method: 'get'
-            , url: 'http://localhost:3000/list'
-        });
+            , url: 'http://localhost:3000/list/'+params.page+'?cate='+params.cate
+        })
     }, [ dispatch ]);
 
     const handleSubmit = useCallback((e)=>{
         e.preventDefault();
         const formData = {
-            no: refInputNo.current.value
-            , title: refInputTitle.current.value
-            , author: refInputAuthor.current.value
+            page: refInputPage.current.value || 1
+            , cate: refInputCate.current.value
+            , community: refInputCommunity.current.value
         }
         console.log( '[APP] handleSubmit, [ dispatch ]', formData );
         insertData({
@@ -56,16 +61,16 @@ const App = memo(()=>{
     return(
         <>
             <h1>data</h1>
-            <button onClick={ handleGetData }>GET</button>
-            <form onSubmit={ handleSubmit }>
-                <input type="text" ref={ refInputNo } name="no" placeholder="no"/>
-                <input type="text" ref={ refInputTitle }name="title" placeholder="title"/>
-                <input type="text" ref={ refInputAuthor } name="author" placeholder="author"/>
+            <button onClick={ handleSubmit }>GET</button>
+            <form onSubmit={ handleGetData }>
+                <input type='text' ref={ refInputCommunity } name='community' placeholder='community' value='ygosu'/>
+                <input type='text' ref={ refInputPage } name='page' placeholder='page' value='1'/>
+                <input type='text' ref={ refInputCate } name='cate' placeholder='category' value='yeobgi'/>
                 <button>submit</button>
             </form>
             <ul>
             { status == 200 && ( data.map(( item, idx )=>( 
-                <li key={ item.no }>{ item.no }@{ item.tit }@{ item.name }@{ item.load_dttm }</li> )) ) }
+                <li key={ item.no }>{ item.no }&nbsp;&nbsp;<a href={ item.href }>{ item.tit }</a>&nbsp;&nbsp;{ item.name }&nbsp;&nbsp;{ item.load_dttm }</li> )) ) }
             </ul>
         </>
     )

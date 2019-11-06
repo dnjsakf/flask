@@ -12,9 +12,10 @@ from app.database.pipelines import DataPipe
 def getList( page=1 ):
     conn = app.config['database']['test']['ygosu']
 
-    data = list( conn.aggregate( DataPipe.selectData( cate='yeobgi', page=page, sort={ 'no': 1 } ) ) )
+    cate = request.args.get('cate')
 
-    print( data )
+    pipeline = DataPipe.selectData( cate=cate, page=page, sort={ 'no': -1 } )
+    data = list( conn.aggregate(pipeline=pipeline) )
 
     return jsonify( data )
 
