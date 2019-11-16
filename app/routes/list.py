@@ -8,14 +8,26 @@ from app.config.logger import logger
 from app.database.pipelines import DataPipe
 
 @app.route('/list', methods=['GET'])
-@app.route('/list/<int:page>', methods=['GET'])
-def getList( page=1 ):
-    conn = app.config['database']['test']['ygosu']
+@app.route('/list/<string:comunity>/<string:cate>/<int:page>', methods=['GET'])
+def getList( comunity=None, cate=None, page=1 ):
 
-    cate = request.args.get('cate')
+    rowsForPage = int(request.args['rowsForPage'] if 'rowsForPage' in request.args else 10)
 
-    pipeline = DataPipe.selectData( cate=cate, page=page, sort={ 'no': -1 } )
-    data = list( conn.aggregate(pipeline=pipeline) )
+    conn = app.config['database']['test']['contents']
+
+    data = list(conn.aggregate([
+        { 
+            '$addFields': { 
+                '_id': { '$toString': '$_id' } 
+                , 'no': { '$toInt': '$no' }
+                , 'date': { '$toDate': '$load_dttm' }
+            }
+        }
+        , { '$sort': { 'date': -1, 'no': -1 } }
+        , { '$limit': rowsForPage }
+    ]))
+
+    data = list( data )
 
     return jsonify( data )
 
@@ -33,11 +45,3 @@ def insertList():
         'method': 'get'
         , 'url': 'http://localhost:3000/list'
     })
-
-
-@app.route('/list/<string:category>', methods=['GET'])
-def getCateList( category=None ):
-
-    data = DB.select( collection='test', filter={'_id': False} )
-
-    return jsonify( data )

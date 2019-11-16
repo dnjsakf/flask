@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { hot } from 'react-hot-loader/root'
-import App from './components/App/App'
+import App from './components'
 
 import './static/common.css'
 

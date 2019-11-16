@@ -1,0 +1,2 @@
+header { height: 60px; padding: 10px; font-size: 13px; }
+section { height: 100% - 60px; padding: 10px; font-size: 13px; }

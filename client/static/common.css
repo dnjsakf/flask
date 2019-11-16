@@ -1,0 +1,4 @@
+html, body { margin: 0; padding: 0; height: 100%; width: 100%; background-color: #1abc9c }
+
+header { height: 60px; padding: 10px; background-color: #123451; color: white; }
+section { height: 100% - 60px; padding: 10px; }
